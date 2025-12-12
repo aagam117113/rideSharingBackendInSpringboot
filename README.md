@@ -1,23 +1,46 @@
 Tripmate – Ride Sharing Backend (Spring Boot + MongoDB)
 
-This project is a simplified backend for a ride-sharing application built using Spring Boot, MongoDB, and JWT Authentication.
-It supports user registration, login, requesting trips, accepting trips, and completing rides.
+A simple ride-sharing backend built using Spring Boot, MongoDB, and JWT Authentication.
+This project demonstrates clean API design, layered architecture, authentication, and MongoDB data management.
 
-This is a basic academic project demonstrating:
+🚀 Features
+🔐 Authentication & Security
 
-REST API design
+User Signup (Passenger / Driver roles)
 
-DTO-based request handling
+Login with JWT Token Generation
 
-JWT login + authorization
+Secure Endpoints using JWT Filter
 
-MongoDB repositories
+Password Hashing with BCrypt
 
-Layered architecture (Controller → Service → Repository)
+🚕 Passenger Capabilities (ROLE_USER)
 
-Input validation & global exception handling
+Request a trip
 
-🗂 Project Structure
+View personal trips
+
+Complete a trip after it is accepted
+
+🚗 Driver Capabilities (ROLE_DRIVER)
+
+View pending trip requests
+
+Accept a trip request
+
+Complete the trip
+
+🛠 Additional Features
+
+Input validation using Jakarta Validation
+
+Clean Controller → Service → Repository structure
+
+Global exception handling
+
+Clear separation of layers & DTO usage
+
+📁 Project Structure
 tripmate/
 ├── controller/
 │   ├── AuthController.java
@@ -57,70 +80,35 @@ tripmate/
     ├── JwtProvider.java
     └── SecurityHelper.java
 
+Root Files:
+pom.xml  
+src/main/resources/application.properties  
 
-Root files:
-
-pom.xml
-src/main/resources/application.properties
-
-🧩 Features Implemented
-🔐 Authentication
-
-User signup (ROLE_USER or ROLE_DRIVER)
-
-Login returns JWT token
-
-Passwords stored using BCrypt
-
-JWT validation filter for protected endpoints
-
-🚕 Passenger Features
-
-Request a ride
-
-View own rides
-
-Complete a ride once accepted
-
-🚗 Driver Features
-
-View pending trip requests
-
-Accept a trip
-
-Complete trip
-
-🛠 Other
-
-Global exception handling
-
-Validation using Jakarta annotations
-
-Clean service & repository layers
-
-📌 API Endpoints Summary
-Auth
+🔗 API Endpoints
+Authentication
 Method	Endpoint	Description
-POST	/api/v2/auth/signup	Register user
-POST	/api/v2/auth/signin	Login + receive JWT
-Passenger APIs (ROLE_USER)
+POST	/api/v2/auth/signup	Register a new user (PASSENGER or DRIVER)
+POST	/api/v2/auth/signin	Login and receive JWT token
+Passenger Endpoints (ROLE_USER)
 Method	Endpoint	Description
 POST	/api/v2/trips	Request a new trip
-POST	/api/v2/trips/{id}/finish	Complete accepted trip
-GET	/api/v2/user/trips	View all trips requested by user
-Driver APIs (ROLE_DRIVER)
+POST	/api/v2/trips/{id}/finish	Complete an accepted trip
+GET	/api/v2/user/trips	View trips made by the user
+Driver Endpoints (ROLE_DRIVER)
 Method	Endpoint	Description
-GET	/api/v2/driver/trips/requests	List all pending trip requests
-POST	/api/v2/driver/trips/{id}/accept	Accept a trip request
-🗄 Database
+GET	/api/v2/driver/trips/requests	View all pending trip requests
+POST	/api/v2/driver/trips/{id}/accept	Accept a trip
+🗃 Database
 
-This project uses MongoDB collections:
+MongoDB Collections:
 
-users
+users → Stores user details
 
-trips
+trips → Stores trip requests and statuses
 
-Documents store user info, hashed passwords, ride details, and status updates.
+Status flow:
+
+REQUESTED → ACCEPTED → COMPLETED
 
 ⚙️ Technologies Used
 
@@ -130,39 +118,35 @@ Spring Boot 3
 
 Spring Security
 
-Spring Data MongoDB
+MongoDB (Spring Data MongoDB)
 
-JWT (JSON Web Token)
+JWT Authentication
 
 Maven
 
-Ubuntu / Linux Compatible
-
 ▶️ Running the Project
-
-Install Java 17 and MongoDB
-
-Update application.properties if needed
-
-Build with:
-
 mvn clean package
-
-
-Run:
-
 mvn spring-boot:run
 
-📝 Notes
 
-JWT must be included in every protected request:
+Make sure MongoDB is running locally on:
 
-Authorization: Bearer <token>
+mongodb://localhost:27017/tripmate
 
+🔑 JWT Usage
 
-Default port is 8081 (can be changed in properties file)
+Include the token in every protected request:
 
-📬 Author
+Authorization: Bearer <your-token-here>
 
-Tripmate Backend Project
-Developed for academic learning and assignment purposes.
+✨ About
+
+This project was developed as part of a backend assignment to demonstrate Spring Boot skills such as:
+
+Clean API development
+
+Proper authentication flow
+
+MongoDB repository usage
+
+Layer separation & validation
